@@ -1,0 +1,21 @@
+---
+name: Checks
+
+on: [push]
+
+jobs:
+  test-lint:                                          #Defines a new Job called test-lint (This is the ID of the) job)
+    name: Test and Lint
+    runs-on: ubunt-20.04                              #The OS we're going to running our jobs on
+    steps:
+      - name: Login to Docker Hub
+        users: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Checkout                                #To make sure the code is available to run the next step
+        uses: actions/checkout@v2
+      - name: Test
+        run: docker-compose run --rm app sh -c "python manage.py test"
+      - name: Lint
+        run: docker-compose run --rm app sh -c "flake8"
