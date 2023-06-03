@@ -6,7 +6,7 @@ on: [push]
 jobs:
   test-lint:                                          #Defines a new Job called test-lint (This is the ID of the) job)
     name: Test and Lint
-    runs-on: ubunt-20.04                              #The OS we're going to running our jobs on
+    runs-on: ubuntu-20.04                              #The OS we're going to running our jobs on
     steps:
       - name: Login to Docker Hub
         users: docker/login-action@v1
